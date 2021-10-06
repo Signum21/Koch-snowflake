@@ -1,27 +1,26 @@
+ArrayList<Line> flake = new ArrayList<Line>();
+ArrayList<Line> antiFlake = new ArrayList<Line>();
 int step = 3;
-final ArrayList<Line> flake = new ArrayList<Line>();
-final ArrayList<Line> antiFlake = new ArrayList<Line>();
 
 void setup(){
     size(1200, 600);
     stroke(255);
     noLoop();
-    final int len = width/2-100;
 
-    float startY = 155;
-    flake.add(new Line(50, startY, len, 0, 1));
-    flake.add(new Line(50, startY, len, 60, -1));
-    flake.add(new Line(50+len, startY, len, 120, 1));
-    
-    startY = 85;
-    antiFlake.add(new Line(width/2+50, startY, len, 0, -1));
-    antiFlake.add(new Line(width/2+50, startY, len, 60, 1));
-    antiFlake.add(new Line(width/2+50+len, startY, len, 120, -1));
+    final int len = width/2-100;
+    createBaseFlake(flake, 50, 155, len, 1);
+    createBaseFlake(antiFlake, width/2+50, 85, len, -1);    
 
     for(int a = 0; a < step; a++){
         goForward(flake);
         goForward(antiFlake);
     }
+}
+
+void createBaseFlake(ArrayList<Line> _flake, int startX, int startY, int _len, int dir){
+    _flake.add(new Line(startX, startY, _len, 0, dir));
+    _flake.add(new Line(startX, startY, _len, 60, -dir));
+    _flake.add(new Line(startX+_len, startY, _len, 120, dir));
 }
 
 void draw(){
